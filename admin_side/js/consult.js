@@ -2,24 +2,24 @@ var rows,n=1,nbp;
 var table = document.getElementById('myTable');
 
 
-
+  //ouverture de la base de données patient
   db = openDatabase('patient', '1.0', "Exemple de manipulation d'une base de données", 2*1024*1024);
         db.transaction(function (tx) {
+//effectuer une transaction(requete select) pour extraire tous les lignes de la table patientcovid
             tx.executeSql('SELECT * FROM patientcovid ORDER BY prio', [], function (tx, result) {
                  rows = result.rows;
-                var tr = '<tr ><th>Identifiant</th><th>Priorite</th><th>Age</th><th>Code postal</th><th>Date Test</th></tr>';
+// affichage des lignes de la table patientcovid 5 par 5  ( à travers pagination)
+
+                var tr = '<tr ><th>Identifiant</th><th>Priorite</th><th>Code postal</th><th>Age</th><th>Date Test</th></tr>';
 				if(rows.length<5)
 				{
 				for (var i = 0; i < rows.length; i++) {
                     tr += '<tr>';
-                    //  tr += '<td>' + rows[i].nom + '</td>';
-              
-
-                tr += '<td>' + result.rows.item(i).iden + '</td>';
+					tr += '<td>' + result.rows.item(i).iden + '</td>';
                     tr += '<td>' + result.rows.item(i).prio + '</td>';
                     tr += '<td>' + result.rows.item(i).codePostal+ '</td>';
-					 tr += '<td>' + result.rows.item(i).age+ '</td>';
-					 tr += '<td>' + result.rows.item(i).dateTest+ '</td>';
+					tr += '<td>' + result.rows.item(i).age+ '</td>';
+					tr += '<td>' + result.rows.item(i).dateTest+ '</td>';
                     tr += '</tr>';
                 }
                 document.getElementById('myTable').innerHTML = tr;
@@ -27,23 +27,19 @@ var table = document.getElementById('myTable');
 				else{
                 for (var i = 0; i <5 ; i++) {
                     tr += '<tr>';
-                    //  tr += '<td>' + rows[i].nom + '</td>';
-                
 
-                tr += '<td>' + result.rows.item(i).iden + '</td>';
+					tr += '<td>' + result.rows.item(i).iden + '</td>';
                     tr += '<td>' + result.rows.item(i).prio + '</td>';
                     tr += '<td>' + result.rows.item(i).codePostal+ '</td>';
-					 tr += '<td>' + result.rows.item(i).age+ '</td>';
-					 tr += '<td>' + result.rows.item(i).dateTest+ '</td>';
+					tr += '<td>' + result.rows.item(i).age+ '</td>';
+					tr += '<td>' + result.rows.item(i).dateTest+ '</td>';
                     tr += '</tr>';
 
                 }
-               // document.getElementById('myTable').innerHTML = tr;
+
 				}
 				 nbp=rows.length/5;
 if(nbp%5!=0)nbp++;
-//if(nbp>=2){ document.getElementById('pg').append='  <a href="#" class="active">2</a>';
-
 
 for(i=0;i<Math.floor(nbp);i++)
 {
@@ -51,12 +47,12 @@ document.getElementById('pg').innerHTML=document.getElementById('pg').innerHTML+
 }
 
 
-            }, null);// en cas d'erreur elle return null;
+            }, null);
         });
-		/******************/
+
 function charge1(nb){
  n=nb;
-// document.getElementById("1").style.backgroundColor = "#4CAF50";
+
  for (i=1;i<=nbp ; i++) 
   {
     if (i==nb)
@@ -70,18 +66,19 @@ function charge1(nb){
 	  document.getElementById(i).style.backgroundColor= "yellow";
 	  }
   }
+  //ouverture de la base de données patient
 db = openDatabase('patient', '1.0', "Exemple de manipulation d'une base de données", 2*1024*1024);
+//effectuer une transaction(requete select) pour extraire tous les lignes de la table patientcovid
         db.transaction(function (tx) {
             tx.executeSql('SELECT * FROM patientcovid ORDER BY prio', [], function (tx, result) {
                  rows = result.rows;
-                var tr = '<tr ><th>Identifiant</th><th>Priorite</th><th>Age</th><th>Code postal</th><th>Date Test</th></tr>';
+                var tr = '<tr ><th>Identifiant</th><th>Priorite</th><th>Code postal</th><th>Age</th><th>Date Test</th></tr>';
+// affichage des lignes de la table patientcovid 5 par 5  ( à travers pagination)
 				if(rows.length<5 )
 				{
 				for (var i = 0; i <rows.length;  i++) {
-				//alert(i);
                     tr += '<tr>';
-                    //  tr += '<td>' + rows[i].nom + '</td>';
-               
+
 
                 tr += '<td>' + result.rows.item(i).iden + '</td>';
                     tr += '<td>' + result.rows.item(i).prio + '</td>';
@@ -98,10 +95,8 @@ db = openDatabase('patient', '1.0', "Exemple de manipulation d'une base de donn�
 				if((nb*5>rows.length))
 					{
 				for (var  i=(nb-1)*5; i <rows.length;  i++) {
-				//alert(i);
+
                     tr += '<tr>';
-                    //  tr += '<td>' + rows[i].nom + '</td>';
-              
 
                 tr += '<td>' + result.rows.item(i).iden + '</td>';
                     tr += '<td>' + result.rows.item(i).prio + '</td>';
@@ -114,16 +109,14 @@ db = openDatabase('patient', '1.0', "Exemple de manipulation d'une base de donn�
 				}
 				else{
                 for (var i = (nb-1)*5; i <(nb-1)*5+5; i++) {
-				//alert(i);
-                    tr += '<tr>';
-                    //  tr += '<td>' + rows[i].nom + '</td>';
-                
 
-                tr += '<td>' + result.rows.item(i).iden + '</td>';
+                    tr += '<tr>';
+
+					tr += '<td>' + result.rows.item(i).iden + '</td>';
                     tr += '<td>' + result.rows.item(i).prio + '</td>';
                     tr += '<td>' + result.rows.item(i).codePostal+ '</td>';
-					 tr += '<td>' + result.rows.item(i).age+ '</td>';
-					 tr += '<td>' + result.rows.item(i).dateTest+ '</td>';
+					tr += '<td>' + result.rows.item(i).age+ '</td>';
+					tr += '<td>' + result.rows.item(i).dateTest+ '</td>';
                     tr += '</tr>';
 
                 }
@@ -131,24 +124,11 @@ db = openDatabase('patient', '1.0', "Exemple de manipulation d'une base de donn�
                   }
 				  }
 				 
-                }, null);// en cas d'erreur elle return null;
+                }, null);
                 });
 
 }
-function precedent(){
-if(n!=1)
-{
-n--;
-charge1(n);
-}
-}
-function suivant(){
-if(n!=Math.floor(nbp))
-{
-n++;
-charge1(n);
-}
-}
+
 
 
 function chercher() {
