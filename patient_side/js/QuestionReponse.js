@@ -425,6 +425,7 @@ function questionSuivant()
 	}
 	}
 	}
+
 	if(token!=0) 
 	envoyerDonnee(token,priorite,codePostal,age,dateAuj)
 }
